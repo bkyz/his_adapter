@@ -14,13 +14,14 @@ module HisAdapter
     def dict
       @dict ||= begin
                   common_dict = ::HisAdapter.config["dict"]["common"]["response"] || {}
-                  custom_dict = ::HisAdapter.config["dict"].fetch(api) do
-                    raise ApiDictConfigNotFoundError, api
-                  end.fetch("response") do
-                    raise ApiResponseDictConfigNotFoundError, api
-                  end
+                  # custom_dict = ::HisAdapter.config["dict"].fetch(api) do
+                  #   raise ApiDictConfigNotFoundError, api
+                  # end.fetch("response") do
+                  #   raise ApiResponseDictConfigNotFoundError, api
+                  # end || {}
 
-                  binding.pry
+                  custom_dict = ::HisAdapter.config["dict"].dig(api, "response") || {}
+
                   common_dict.merge(custom_dict)
                 end
     end
@@ -32,7 +33,6 @@ module HisAdapter
       when Hash
         value.deep_transform_keys! { |k| convert_field(dict, k) }
       when String
-        # dict.key(value) || value
         dict[value] || value
       else
         value
@@ -40,9 +40,8 @@ module HisAdapter
     end
 
     def convert
-      p "---------"
-      p @dict
-      p "---------"
+      return @data if !@data.is_a?(Hash) || dict.blank?
+
       data = @data.deep_transform_keys(&:to_s)
 
       convert_field(dict, data)

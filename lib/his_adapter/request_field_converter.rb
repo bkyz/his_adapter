@@ -18,7 +18,7 @@ module HisAdapter
                     raise(ApiDictConfigNotFoundError, api)
                   end.fetch("request") do
                     raise(ApiRequestDictConfigNotFoundError, api)
-                  end
+                  end || {}
 
                   common_dict.merge(dict)
                 end

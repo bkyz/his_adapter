@@ -13,6 +13,7 @@ module HisAdapter
       def wrap(content)
         if @wrap_field
           "<#{@wrap_field}><![CDATA[#{content}]]></#{@wrap_field}>"
+          # "<#{@wrap_field}>#{content}</#{@wrap_field}>"
         else
           "#{content}"
         end

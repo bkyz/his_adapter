@@ -38,128 +38,144 @@ default: &default
   dict:
     common:
       response:
-#        result_code: "ResultCode"
-        ErrorMsg: "error_msg"
-        Result: "result"
-        Response: "response"
-        res: "response"
-        resultCode: "result_code"
-        ResultCode: "result_code"
-        resultDesc: "result_desc"
+#        result_code: ResultCode
+        ErrorMsg: error_msg
+        Result: result
+        Response: response
+        res: response
+        resultCode: result_code
+        ResultCode: result_code
+        resultDesc: result_desc
     get_patients_info:
       request:
-        patient_name: "pat_name"
-        patient_hospital_no: "pat_hospital_no"
-        patient_bar_code: "pat_bar_code"
-        client_type: "clientType"
+        patient_name: pat_name
+        patient_hospital_no: pat_hospital_no
+        patient_bar_code: pat_bar_code
+        client_type: clientType
       response:
     get_registerable_departments:
       request:
-        data: "date"
-        hospital_id: "hospitalId"
-        dept_id: "deptId"
+        data: date
+        hospital_id: hospitalId
+        dept_id: deptId
       response:
-        loc: "location"
-        descript: "description"
-        dept_list: "list"
+        loc: location
+        descript: description
+        dept_list: list
     get_provinces:
       response:
-        code: "province_code"
-        name: "province_name"
+        province_code: code
+        province_name: name
     get_cities:
       request:
-        province_code: "PROVINCE_CODE"
+        province_code: PROVINCE_CODE
       response:
-        CITY_CODE: code
-        CITY_NAME: name
+        city_code: code
+        city_name: name
     get_districts:
       request:
-        city_code: "CITY_CODE"
+        city_code: CITY_CODE
       response:
-        code: "district_code"
-        name: "district_name"
+        district_code: code
+        district_name: name
     get_towns:
       request:
-        district_code: "DISTRICT_CODE"
+        district_code: DISTRICT_CODE
       response:
-        code: "town_code"
-        name: "town_name"
+        town_code: code
+        town_name: name
     create_medical_card:
       request:
-        name: "PatientName"
-        gender: "Sex"
-        birthday: "BirthDay"
-        address: "Address"
-        nation: "Nation"
-        phone_no: "Phone"
-        card_no: "CardNo"
-        id_card_no: "IDCard"
-        machine_id: "MachineId"
-        province_code: "PROVINCE_CODE"
-        province_name: "PROVINCE_NAME"
-        city_code: "CITY_CODE"
-        city_name: "CITY_NAME"
-        district_code: "RIGION_CODE" # 这个没打错，就是这样的，提供接口的那边打错了
-        district_name: "REGION_NAME"
-        town_code: "TOWN_CODE"
-        town_name: "TOWN_NAME"
-        detail_address: "DETAIL_ADDRESS"
-        guardian_relation: "YJHRGX"
-        guardian_name: "JHRXM"
-        guardian_phone_no: "JHRDH"
-        guardian_id_card_no: "JHRSFZH"
+        name: PatientName
+        gender: Sex
+        birthday: BirthDay
+        address: Address
+        nation: Nation
+        phone_no: Phone
+        card_no: CardNo
+        id_card_no: IDCard
+        machine_id: MachineId
+        province_code: PROVINCE_CODE
+        province_name: PROVINCE_NAME
+        city_code: CITY_CODE
+        city_name: CITY_NAME
+        district_code: RIGION_CODE # 这个没打错，就是这样的，提供接口的那边打错了
+        district_name: REGION_NAME
+        town_code: TOWN_CODE
+        town_name: TOWN_NAME
+        detail_address: DETAIL_ADDRESS
+        guardian_relation: YJHRGX
+        guardian_name: JHRXM
+        guardian_phone_no: JHRDH
+        guardian_id_card_no: JHRSFZH
+
+        PatientName: name
+        Sex: gender
+        Birthday: birthday
+        Address: address
+        Nation: nation
+        Phone: phone_no
+        CardNo: card_no
+        IDCard: id_card_no
+        MachineId: machine_id
+        PROVINCE_CODE: province_code
+        PROVINCE_NAME: province_name
+        CITY_CODE: city_code
+        CITY_NAME: city_name
+        RIGION_CODE: district_code
+        REGION_NAME: district_name
       response:
-        hospital_id: "hospatid"
-        outpatient_no: "clinno"
-        card_no: "cardno"
+        hospatid: hospital_id
+        clinno: outpatient_no
+        cardno: card_no
     get_register_info:
       request:
-        card_no: "CardNo"
-        outpatient_no: "ClinNo"
-        id_card_no: "IDCard"
-        serial_number: "FlowNo"
-        hospital_id: "HosPatId"
-        start_on: "StartDate"
-        end_on: "EndDate"
+        card_no: CardNo
+        outpatient_no: ClinNo
+        id_card_no: IDCard
+        serial_number: FlowNo
+        hospital_id: HosPatId
+        start_on: StartDate
+        end_on: EndDate
       response:
-        serial_number: "flowno"
-        hospital_id: "hospatid"
-        outpatient_id: "clinno"
-        card_no: "cardno"
-        id_card_no: "idcard"
-        schedule_id: "scheduleid"
-        department_id: "deptid"
-        department_name: "deptname"
-        doctor_id: "docid"
-        doctor_name: "docname"
-        subject_id: "subjectid"
-        subject_name: "subjectname"
-        start_at: "starttime"
-        end_at: "endtime"
-        register_type: "regtype"
-        register_fee: "regamt"
-        registrar_id: "registrarid"
-        registered_at: "regtime"
-        wait_no: "waitno"
-        state: "state"
+        serial_number: flowno
+        hospital_id: hospatid
+        outpatient_id: clinno
+        card_no: cardno
+        id_card_no: idcard
+        schedule_id: scheduleid
+        department_id: deptid
+        department_name: deptname
+        doctor_id: docid
+        doctor_name: docname
+        subject_id: subjectid
+        subject_name: subjectname
+        start_at: starttime
+        end_at: endtime
+        register_type: regtype
+        register_fee: regamt
+        registrar_id: registrarid
+        registered_at: regtime
+        wait_no: waitno
+        state: state
     get_bookable_departments:
       response:
-        department_id: "deptid"
-        department_name: "deptname"
-        top_department_code: "top_dept_code"
-        top_department_name: "top_dept_name"
-        sort_id: "sort_id"
+        deptid: department_id
+        deptname: department_name
+        top_dept_code: top_department_code
+        top_dept_name: top_department_name
+        sort_id: sort_id
     pay:
       request:
-        hospital_id: "HosPatId"
-        outpatient_no: "ClinNo"
-        result_data: "ResultData"
-        serial_number: "FlowNo"
-        prescription_id: "RecipeId"
-        options: "Options"
-        start_at: "StartTime"
-        end_at: "EndTime"
-        orders: "Orders"
+        hospital_id: HosPatId
+        outpatient_no: ClinNo
+        result_data: ResultData
+        serial_number: FlowNo
+        prescription_id: RecipeId
+        options: Options
+        start_at: StartTime
+        end_at: EndTime
+        orders: Orders
         fee: Fee
       response:
 
