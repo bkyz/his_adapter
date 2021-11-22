@@ -2,7 +2,6 @@
 module HisAdapter
   class RequestFieldConverter
     class ApiDictConfigNotFoundError < StandardError; end
-    class ApiRequestDictConfigNotFoundError < StandardError; end
 
     attr_accessor :api, :params
 
@@ -14,11 +13,7 @@ module HisAdapter
     def dict
       @dict ||= begin
                   common_dict = ::HisAdapter.config["dict"]["common"]["request"] || {}
-                  dict = ::HisAdapter.config["dict"].fetch(api) do
-                    raise(ApiDictConfigNotFoundError, api)
-                  end.fetch("request") do
-                    raise(ApiRequestDictConfigNotFoundError, api)
-                  end || {}
+                  dict = ::HisAdapter.config["dict"].dig(api, "request") || {}
 
                   common_dict.merge(dict)
                 end
@@ -38,6 +33,8 @@ module HisAdapter
     end
 
     def convert
+      return @params if @params.blank? || dict.blank?
+
       params = @params.deep_transform_keys(&:to_s)
 
       convert_field(dict, params)

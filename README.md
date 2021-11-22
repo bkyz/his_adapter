@@ -5,19 +5,26 @@ Short description and motivation.
 
 金沙洲: 
 ```ruby
-api = :pending_pay
+api = :network_test
+
 params = {
-  ora_code: "00004" ,
-  ora_auth_code: "cs0908673598",
-  transaction_code: "JK3008",
-  disp_or_resi: 0,
-  id_card_no: "440102195106192366",
-  clinic_card: "0000006236"
+  transaction_code: "1001",
+  transaction_id: "111",
+  auth_key: "eUOPTfxvGVeusXeV",
+  user_id: "fdrx/FD001",
+  device_id: "111",
+  hospital_id: "H44011100745"
 }
+
+::HisAdapter::Client.new(adapter: :jsz_his).request(api, 
+                                                    params,
+                                                    xml_root: "Request",
+                                                    wrap_field: "strXml",
+                                                    attributes: { "xmlns" => "http://www.zoesoft.com.cn/" })
 
 ```
 
-广三旧院区 his: 
+广三旧院区 his:
 ```ruby
 api = :get_registerable_departments
 params = {date: "2021-11-16", hospital_id: "", dept_id: ""}
@@ -51,6 +58,15 @@ HisAdapter::Client.new(adapter: :gysy_esb).request(api,
                                                    params, 
                                                    xml_root: "req", 
                                                    attributes: { "xmlns" => "http://ESB.Service/" })
+```
+
+广三新院区(esb)
+```ruby
+api = :get_server_time 
+
+::HisAdapter::Client.new(adapter: :new_gysy_esb).request(:get_server_time,
+                                                         xml_root: "Request",
+                                                         attributes: { "xmlns" => "http://ESB.Service/" })
 ```
 
 顺德妇幼

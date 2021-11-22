@@ -2,60 +2,23 @@
 default: &default
   # available protocol: his, lis, esb, pacs, http
 
-  sdfy_his:
-    protocol: his
-    wsdl: http://localhost:8088/NeusoftHisService.asmx?wsdl
-  gysy_his:
-    protocol: his
-  #  wsdl: http://localhost:8088/NeusoftHisService.asmx?wsdl
-    wsdl: http://localhost:88/BKCloud.asmx?wsdl
-  #  wsdl: http://localhost:8080/PrecompiledWeb/LisReport.asmx?wsdl
-  gysy_lis:
-    protocol: lis
-    wsdl: http://localhost:8080/PrecompiledWeb/LisReport.asmx?wsdl
-  gysy_esb:
-    protocol: esb
-    wsdl: http://localhost:82/ESBService.asmx?wsdl
-    app_code: APP_WeChat
-    password: F80oC4Qk
-    version: 1
-    message_category:
-      get_pathology_report_list: Pathology_GetReportList # 获取病理报告列表
-      get_pathology_report_image: Pathology_GetReportImage # 获取病理报告图片
-      get_endoscpy_report_list: Endoscpy_GetReportList
-      get_endoscpy_report_item: Endoscpy_GetReportItem
-      get_endoscpy_report_image: Endoscpy_GetReportImage
-  new_gysy_esb:
-    wsdl: http://localhost:6002/Esbservice.asmx?wsdl
-    protocol: esb
-    app_code: APP_WeChatOA
-    password: FPs9oqUbCZwCCQfz
-    version: 1
-    message_category:
-      get_server_time: HIS_GetServerTime
-  gysy_pacs:
-    protocol: pacs
-    wsdl: http://localhost:8081/wsdl/IPacsServices
-
   jsz_his:
     protocol: his
     wsdl: http://localhost:8081/service/service.asmx?wsdl
 
-  jsz_http:
-    protocol: http
-    base_url: http://localhost:8086/sqwebserver.asmx
-
   api:
-#    get_patients_info: :get_patients_info
-    get_server_time: :call_esb
-    get_patients_info: :invoke # 金沙洲
+    medical_card_exists: :invoke # 判断就诊卡是否存在
+    get_medical_card: :invoke  # 获取就诊卡信息
+    create_medical_card: :invoke # 创建诊疗卡
+    update_medical_card: :invoke # 修改诊疗卡信息
+
+    outpatient_pending_orders: :invoke #
+    outpatient_pending_orders_detail: :invoke
+
     get_provinces: :dx_get_province  # 获取省份列表
     get_cities: :dx_get_city # 获取城市列表
     get_districts: :dx_get_district # 获取区列表
     get_towns: :dx_get_town # 获取镇、街道列表
-    get_medical_card: :dx_get_patient18 # 获取
-    create_medical_card: :dx_new_patient18 # 创建诊疗卡
-    edit_medical_card: :dx_edit_patient18 # 修改诊疗卡信息
     check_real-name_auth: :dx_check_idenno_new # 验证是否实名
 #    get_registerable_departments: :dx_get_reg_dept_list # 获取挂号科室列表
     get_registerable_departments: :bk_cloud_get_dept_info # 获取挂号科室列表
@@ -112,6 +75,8 @@ default: &default
         card_type: CardType
         card_num: CardNum
         is_child: isChild
+        start_date: StartDate
+        end_date: EndDate
       response:
 #        result_code: ResultCode
         ErrorMsg: error_msg
@@ -130,7 +95,7 @@ default: &default
         device_id: DeviceID
         hospital_id: HospitalID
     get_patient_info: # 金沙洲
-      request:
+#      request:
 
 
     pending_pay:

@@ -10,12 +10,16 @@ module HisAdapter
         @adapter = adapter.to_s
       end
 
-      def request(api, params, wrap_field: nil, **options)
+      # base_params 是为了放最外层的参数而存在的
+      def request(api, params, xml_root: nil, wrap_field: nil, base_params: {}, **options)
         url = url(api.to_s)
 
-        formatted_parameter = format_params(api, params, wrap_field: wrap_field)
+        formatted_parameter = format_params(api,
+                                            params,
+                                            xml_root: xml_root,
+                                            wrap_field: wrap_field)
 
-        response = Faraday.post(url, formatted_parameter, **options)
+        response = Faraday.post(url, base_params.merge(formatted_parameter), **options)
 
         p 1
 
@@ -29,8 +33,11 @@ module HisAdapter
         end
       end
 
-      def format_params(api, params, wrap_field: )
-        ::HisAdapter::Http::Parameter.new(api, params, wrap_field: wrap_field).convert!
+      def format_params(api, params, xml_root:, wrap_field:)
+        ::HisAdapter::Http::Parameter.new(api,
+                                          params,
+                                          xml_root: xml_root,
+                                          wrap_field: wrap_field).convert!
       end
 
       def url(api)

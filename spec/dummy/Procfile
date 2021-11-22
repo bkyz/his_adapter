@@ -1,6 +1,7 @@
-jsz_his: ssh -NL 0.0.0.0:8086:183.6.161.254:8086 gysy
+jsz_his: ssh -NL 0.0.0.0:8081:183.6.161.254:8087 gysy
 gysy_his: sudo ssh -NL 0.0.0.0:88:139.168.100.232:88 gysy
 gysy_lis: ssh -NL 0.0.0.0:8080:139.168.100.208:8080 gysy
 gysy_esb: sudo ssh -NL 0.0.0.0:82:139.168.85.50:82 gysy
 # gysy_pacs: ssh -NL 0.0.0.0:8081:139.168.100.208:8081 gysy
-sdfy_his: ssh -NL 0.0.0.0:8088:localhost:3499 pa
+# sdfy_his: ssh -NL 0.0.0.0:8088:localhost:3499 pa
+new_gysy_esb: ssh -NL 0.0.0.0:6002:139.168.201.22:6002 gysy

@@ -45,10 +45,10 @@ module HisAdapter
 
       # 将参数转为 soap 协议的 message 参数，类型为字符串
       def format_params(api, params, adapter: , wrap_field: , xml_root: )
-        return "" if params.blank?
+        return "" if params.blank? && !esb_protocol?
 
 
-        if config["protocol"] == 'esb'
+        if esb_protocol?
           ::HisAdapter::Soap::EsbParameter.new(api,
                                                params,
                                                adapter: adapter,
@@ -64,6 +64,10 @@ module HisAdapter
 
       def config
         @config ||= ::HisAdapter.config[adapter]
+      end
+
+      def esb_protocol?
+        config["protocol"] == "esb"
       end
 
       def operation(api)

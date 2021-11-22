@@ -23,6 +23,8 @@ module HisAdapter
       end
 
       def convert_params_to_xml
+        return params if params.nil?
+
         # 因为有些服务不需要根标签，这时候只要传入值为 "" 的 xml_root 即可。
         # 因为 to_xml 的 root 参数为 "" 会产生一对 <></> 空标签作为根标签，这里将这对空标签去除
         if xml_root == ""
