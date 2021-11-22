@@ -33,6 +33,10 @@ default: &default
     protocol: his
     wsdl: http://localhost:8086/sqwebserver.asmx?wsdl
 
+  jsz_http:
+    protocol: http
+    base_url: http://localhost:8086/sqwebserver.asmx
+
   api:
     get_patients_info: :get_patients_info
     get_provinces: :dx_get_province  # 获取省份列表
@@ -65,8 +69,10 @@ default: &default
     get_report_list: :get_report_list
     get_exam_detail: :get_exam_detail
     download_report: :download_report2
-    network_test: :interface_trade_jkzl
     pending_pay: :interface_trade_jkzl
+
+    # 金沙洲 http 这里的 Interface_Trade_Jkzl 是区分大小写的
+    network_test: :Interface_Trade_Jkzl
 
     # 获取病理报告列表 wsb
     get_pathology_report_list: :call_esb
@@ -90,6 +96,7 @@ default: &default
         ora_auth_code: oraauthcode # 金沙洲
         trade_code: tradeCode # 金沙洲
         transaction_code: TransactionCode # 金沙洲
+        request_xml: requestXml
 
       response:
 #        result_code: ResultCode

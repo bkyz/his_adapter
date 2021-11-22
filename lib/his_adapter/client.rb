@@ -9,7 +9,7 @@ module HisAdapter
       if ::HisAdapter.use_soap?(adapter: adapter)
         @client = ::HisAdapter::Soap::Client.new(adapter: adapter)
       elsif HisAdapter.use_http?(adapter: adapter)
-        @client = ::HisAdapter::Http::Client
+        @client = ::HisAdapter::Http::Client.new(adapter: adapter)
       end
     end
 

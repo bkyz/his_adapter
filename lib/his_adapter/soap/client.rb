@@ -17,11 +17,11 @@ module HisAdapter
       def request(api, params = nil, wrap_field: nil, xml_root: "Request", **options)
         operation = operation(api)
 
-        message = params_to_message(api,
-                                    params,
-                                    adapter: adapter,
-                                    wrap_field: wrap_field,
-                                    xml_root: xml_root)
+        message = format_params(api,
+                                params,
+                                adapter: adapter,
+                                wrap_field: wrap_field,
+                                xml_root: xml_root)
 
         default_options = {
           attributes: {
@@ -30,8 +30,8 @@ module HisAdapter
         }
 
         # binding.pry
+        req = client.build_request(operation, message: message, **default_options.merge(options))
         raw_response = client.call(operation, message: message, **default_options.merge(options))
-        # req = client.build_request(operation, message: message, **default_options.merge(options))
         # binding.pry
 
 
@@ -44,7 +44,7 @@ module HisAdapter
       end
 
       # 将参数转为 soap 协议的 message 参数，类型为字符串
-      def params_to_message(api, params, adapter: , wrap_field: , xml_root: )
+      def format_params(api, params, adapter: , wrap_field: , xml_root: )
         return "" if params.blank?
 
 

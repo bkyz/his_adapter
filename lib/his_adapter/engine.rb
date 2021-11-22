@@ -6,10 +6,13 @@ require "his_adapter/soap/parameter_formatter"
 require "his_adapter/soap/request"
 require "his_adapter/client"
 require "his_adapter/http/client"
+require "his_adapter/http/parameter"
+require "his_adapter/http/parameter_formatter"
 require "his_adapter/soap/client"
 require "his_adapter/response_field_converter"
 require "his_adapter/soap/response"
 require "savon"
+require "faraday"
 require 'factory_bot_rails'
 
 module HisAdapter

@@ -21,7 +21,7 @@ module HisAdapter
     private
 
     def convert_field!
-      @converted = RequestFieldConverter.new(@api, @origin).convert
+      @converted = RequestFieldConverter.new(api, origin).convert
     end
   end
 end

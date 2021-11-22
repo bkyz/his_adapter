@@ -12,7 +12,7 @@ module HisAdapter
       protected
 
       def format!
-        @converted = Soap::ParameterFormatter.new(@converted, xml_root: xml_root, wrap_field: wrap_field).format
+        @converted = ::His::Soap::ParameterFormatter.new(@converted, xml_root: xml_root, wrap_field: wrap_field).format
       end
     end
   end
