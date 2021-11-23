@@ -32,7 +32,7 @@ module HisAdapter
           </ESBEnvelope>
         ESB
 
-        "<xmlMessage>#{CGI.escapeHTML(xml_message)}</xmlMessage>"
+        "<#{wrap_field}>#{CGI.escapeHTML(xml_message)}</#{wrap_field}>"
       end
 
       def app_code

@@ -57,6 +57,7 @@ params = {
 HisAdapter::Client.new(adapter: :gysy_esb).request(api, 
                                                    params, 
                                                    xml_root: "req", 
+                                                   wrap_field: "xmlMessage",
                                                    attributes: { "xmlns" => "http://ESB.Service/" })
 ```
 
@@ -66,6 +67,7 @@ api = :get_server_time
 
 ::HisAdapter::Client.new(adapter: :new_gysy_esb).request(:get_server_time,
                                                          xml_root: "Request",
+                                                         wrap_field: "xmlMessage",
                                                          attributes: { "xmlns" => "http://ESB.Service/" })
 ```
 
