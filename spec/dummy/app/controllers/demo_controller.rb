@@ -49,14 +49,16 @@ class DemoController < ApplicationController
     #                                                                 wrap_field: "xmlMessage",
     #                                                                 attributes: { "xmlns" => "http://ESB.Service/"  })
 
-    resp = ::HisAdapter::Client.new(adapter: :jsz_his).request(:get_registerable_departments,
-                                                        params,
-                                                        attributes: {
-                                                          "xmlns" => "http://www.zoesoft.com.cn/"
-                                                        })
+    # resp = ::HisAdapter::Client.new(adapter: :jsz_his).request(:get_registerable_departments,
+    #                                                     params,
+    #                                                     attributes: {
+    #                                                       "xmlns" => "http://www.zoesoft.com.cn/"
+    #                                                     })
     # resp = ::HisAdapter::Client.new(adapter: :new_gysy_esb).request(:get_server_time,
     #                                                          attributes: { "xmlns" => "http://ESB.Service/" })
     # render json: resp.data
+    resp = ::HisAdapter::Client.new(adapter: :new_gysy_esb).request(:get_server_time, {}, attributes: { "xmlns" => "http://ESB.Service/" })
+
     render json: resp.data
   end
 end

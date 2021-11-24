@@ -11,7 +11,7 @@ module HisAdapter
 
       def initialize(api, params, adapter:, xml_root: nil, wrap_field: nil)
         @adapter = adapter.to_s
-        @origin_params = params
+        @origin_params = params.presence || {}
         @api = api.to_s
         @xml_root = xml_root
         @wrap_field = wrap_field

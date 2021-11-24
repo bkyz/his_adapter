@@ -13,6 +13,7 @@ require "his_adapter/response_field_converter"
 require "his_adapter/soap/response"
 require "savon"
 require "faraday"
+require "rexml"
 require 'factory_bot_rails'
 
 module HisAdapter

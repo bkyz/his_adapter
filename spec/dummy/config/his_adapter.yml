@@ -2,28 +2,64 @@
 default: &default
   # available protocol: his, lis, esb, pacs, http
 
+  gysy_his:
+    protocol: his
+    wsdl: http://localhost:88/BKCloud.asmx?wsdl
+
+  gysy_esb:
+    protocol: esb
+    wsdl: http://localhost:82/ESBService.asmx?wsdl
+    app_code: APP_WeChat
+    password: F80oC4Qk
+    version: 1
+    message_category:
+      get_pathology_report_list: Pathology_GetReportList # 获取病理报告列表
+      get_pathology_report_image: Pathology_GetReportImage # 获取病理报告图片
+      get_endoscpy_report_list: Endoscpy_GetReportList
+      get_endoscpy_report_item: Endoscpy_GetReportItem
+      get_endoscpy_report_image: Endoscpy_GetReportImage
+
+  new_gysy_esb:
+    wsdl: http://localhost:6002/Esbservice.asmx?wsdl
+    protocol: esb
+    xml_root: Request
+    wrap_field: xmlMessage
+    app_code: APP_WeChatOA
+    password: FPs9oqUbCZwCCQfz
+    version: 1
+    message_category:
+      get_server_time: HIS_GetServerTime
+      get_registerable_departments: HIS_GetOutDeptInfo
+
+
+
+  gysy_pacs:
+    protocol: pacs
+    wsdl: http://localhost:8081/wsdl/IPacsServices
+
   jsz_his:
     protocol: his
     wsdl: http://localhost:8081/service/service.asmx?wsdl
-    xml_root: Request
-    wrap_field: strXml
+
+  jsz_http:
+    protocol: http
+    base_url: http://localhost:8086/sqwebserver.asmx
 
   api:
-    medical_card_exists: :invoke # 判断就诊卡是否存在
-    get_medical_card: :invoke  # 获取就诊卡信息
-    create_medical_card: :invoke # 创建诊疗卡
-    update_medical_card: :invoke # 修改诊疗卡信息
 
-    outpatient_pending_orders: :invoke #
-    outpatient_pending_orders_detail: :invoke
 
+
+    get_server_time: :call_esb
+    get_patients_info: :invoke # 金沙洲
     get_provinces: :dx_get_province  # 获取省份列表
     get_cities: :dx_get_city # 获取城市列表
     get_districts: :dx_get_district # 获取区列表
     get_towns: :dx_get_town # 获取镇、街道列表
+    get_medical_card: :dx_get_patient18 # 获取
+    create_medical_card: :dx_new_patient18 # 创建诊疗卡
+    edit_medical_card: :dx_edit_patient18 # 修改诊疗卡信息
     check_real-name_auth: :dx_check_idenno_new # 验证是否实名
-#    get_registerable_departments: :dx_get_reg_dept_list # 获取挂号科室列表
-    get_registerable_departments: :invoke # 获取挂号科室列表
+    get_registerable_departments: :call_esb # 获取门诊科室列表
     get_registerable_doctors: :dx_get_reg_doc_list # 获取挂号医生列表
     get_registerable_doctors_schedule: :dx_getsplit_list # 获取挂号医生排班信息
     get_register_fee: :dx_get_reg_amt # 获取挂号费用
@@ -46,60 +82,23 @@ default: &default
     download_report: :download_report2
     pending_pay: :interface_trade_jkzl
 
-    # 金沙洲 http 这里的 Interface_Trade_Jkzl 是区分大小写的
-#    network_test: :Interface_Trade_Jkzl
-    network_test: :invoke
-
-    # 获取病理报告列表 wsb
-    get_pathology_report_list: :call_esb
-
-    # 获取病理报告图片 wsb
-    get_pathology_report_image: :call_esb
-
-    # 获取内镜报告列表
-    get_endoscpy_report_list: :call_esb
-
-    # 获取内镜报告项目信息
-    get_endoscpy_report_item: :call_esb
-
-    # 获取内镜报告图片
-    get_endoscpy_report_image: :call_esb
-
   dict:
     common:
       request:
-        transaction_code: TranCode # 金沙洲
-        auth_key: AuthKey
-        transaction_id: TransactionID
-        device_id: DeviceID
-        hospital_id: HospitalID
-        user_id: UserID
-        card_type: CardType
-        card_num: CardNum
-        is_child: isChild
-        start_date: StartDate
-        end_date: EndDate
+        branch_id: BranchId
+        department_id: DeptId
+        parent_department_id: ParentDeptId
       response:
 #        result_code: ResultCode
         ErrorMsg: error_msg
         Result: result
         Response: response
         res: response
-        resultCode: result_code
-        ResultCode: result_code
+        ResultCode: code
+        ResultMessage: msg
         resultDesc: result_desc
-    network_test: # 金沙洲
-      request:
-        transaction_code: TranCode
-        transaction_id: TransactionID
-        auth_key: AuthKey
-        user_id: UserID
-        device_id: DeviceID
-        hospital_id: HospitalID
-    get_patient_info: # 金沙洲
-#      request:
-
-
+        Content: data
+        BranchId: branch_id
     pending_pay:
       request:
         disp_or_resi: DispOrResi
@@ -146,18 +145,21 @@ default: &default
 #        pat_itr_id: itr_id
 #        pat_dep_name: dep_name
 #        pat_occ_date: occ_date
+
     get_registerable_departments:
       request:
-        data: date
-        hospital_id: hospitalId
-        dept_id: deptId
       response:
-        loc: location
-        descript: description
-        dept_list: data
-        dept_info: list
-        dept_id: id
-        dept_name: name
+        Dept: departments
+        DeptId: id
+        DeptName: name
+        ParentDeptId: parent_id
+        DeptSerialNo: order
+        ScheduleCount: schedule_count
+        DeptDesc: description
+        DeptSite: room
+        DeptStatus: state
+        DeptRegType: in_schedule
+
     get_provinces:
       response:
         PROVINCE_CODE: code

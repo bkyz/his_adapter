@@ -393,12 +393,9 @@
 | **元素名称** | **元素说明** | **备注** |
 | --- | --- | --- |
 | ESBEnvelope | ESB消息架构的根节点 | 消息命名空间为 http://ESB.TopSchemaV2 |
-| ESBHeader | ESB消息头 |
- |
-| HeaderControl | 消息头控制 |
- |
-| ESBBody | ESB消息体 |
- |
+| ESBHeader | ESB消息头 | |
+| HeaderControl | 消息头控制 | |
+| ESBBody | ESB消息体 | |
 | BusinessRequest | 请求消息内容 | Xml格式的业务字符串，xml的格式需要服务调用方、提供方以及ESB平台方依据业务需求进行制定；请使用\<![CDATA[……]]\>将业务数据包裹。（如果业务数据本身使用了CDATA请注意CDATA的嵌套） |
 
 **HeaderControl**  **（**** ESB ****消息头）各元素的属性说明** 如下：
@@ -425,10 +422,8 @@ ESB返回给消费者时，按照以下消息架构：
 | **元素名称** | **元素说明** | **备注** |
 | --- | --- | --- |
 | ESBReturn | ESB消息架构的根节点 | 消息命名空间为 http://ESB.TopSchemaV2 |
-| ESBHeader | ESB消息头 |
- |
-| ESBBody | ESB消息体 |
- |
+| ESBHeader | ESB消息头 | |
+| ESBBody | ESB消息体 | |
 | BusinessResponse | 返回消息内容 | Xml格式的业务字符串，xml的格式由服务调方、提供方以及ESB平台方依据业务需求进行制定；请使用\<![CDATA[……]]\>将业务数据包裹。（如果业务数据本身使用了CDATA请注意CDATA的嵌套） |
 
 **ESBHeader**  **（**** ESB ****消息头）各元素的属性说明** 如下：
@@ -541,11 +536,11 @@ ESB返回给消费者时，按照以下消息架构：
 
 ## 3.2HIS提供接口
 
-### 3.2.1获取HIS当前时间 HIS\_GetServerTime
+### 3.2.1获取HIS当前时间 HIS_GetServerTime
 
 #### 3.2.1.1服务名 MessageCategory （消息类别）
 
-HIS\_GetServerTime
+HIS_GetServerTime
 
 #### 3.2.1.2用途
 
@@ -560,7 +555,7 @@ HIS\_GetServerTime
 | \<Result\>\<ResultCode\>\</ResultCode\>\<ResultMessage\>\</ResultMessage\>\<Content\>\<ServerTime\> **2021-01-01 00:00:00.000** \</ServerTime\>\</Result\> |
 | --- |
 
-**各元素说明**** ：**
+**各元素说明**:
 
 | **节点名称** | **父节点名称** | **数据类型** | **说明** |
 | --- | --- | --- | --- |
@@ -572,11 +567,11 @@ HIS\_GetServerTime
 
 无
 
-### 3.2.2获取HIS检验申请单信息 HIS\_GetLabApply
+### 3.2.2获取HIS检验申请单信息 HIS_GetLabApply
 
 #### 3.2.2.1服务名 MessageCategory （消息类别）
 
-HIS\_GetLabApply
+HIS_GetLabApply
 
 #### 3.2.2.2用途
 
@@ -613,129 +608,67 @@ HIS\_GetLabApply
 **各元素说明**** ：**
 
 | **节点名称** | **父节点名称** | **数据类型** | **说明** |
- |
-| --- | --- | --- | --- | --- |
-| ResultCode | Result | str | 0：成功，-1：失败 |
- |
-| ResultMessage | Result | str | 失败详细信息 |
- |
-| Content | Result | 节点 | 实例节点 |
- |
+| --- | --- | --- | --- |
+| ResultCode | Result | str | 0：成功，-1：失败 | 
+| ResultMessage | Result | str | 失败详细信息 | 
+| Content | Result | 节点 | 实例节点 | 
 | PatientId | Content | str | 患者ID |
- |
 | MedCardNo | Content | str | 门诊卡号 |
- |
 | InpNo | Content | str | 住院号 |
- |
 | PatientName | Content | str | 姓名 |
- |
 | Sex | Content | str | 性别 |
- |
 | BirthDate | Content | str | 出生日期 |
- |
 | Age | Content | str | 年龄 |
- |
 | PatAddr | Content | str | 联系地址 |
- |
 | PatTel | Content | str | 联系电话 |
- |
 | InsuranceNo | Content | str | 医保卡号，五级要求 |
- |
 | CardType | Content | str | 证件类型，01:居民身份证（户口簿），02:中国人民解放军军官证，03:中国人民武装警察警官证，04:香港特区护照/港澳居民来往内地通行证，05:港澳台居民居住证，06:台湾居民来往大陆通行证，07:外国人永久居留证，08:外国人护照，09:残疾人证，10:军烈属证明，11:外国人就业证，12:外国专家证，13:外国人常驻记者证，14:台港澳人员就业证，15:回国（来华）定居专家证，90:社会保障卡，99:其他身份证件（注意：部分证件类型已经不允许用，但字典项保留） |
- |
 | CardTypeName | Content | str | 居民身份证（户口簿） |
- |
 | CardNo | Content | str | 证件号码 |
- |
 | Nationality | Content | str | 国籍 |
- |
 | PatientIdentity | Content | str | 当前新冠肺炎疫情所需字段，1.出入境通关人员、2.国内出行人员、3.上岗就业人员、4.返校复课师生、5.医疗机构工作人员、6.口岸检疫和边防检查人员、7.监所工作人员、8.社会福利养老机构工作人员、9.孕产妇、10.新生儿、11.母婴服务类机构人员、12.农贸市场海水产品从业人员、13.农贸市场禽畜肉类从业人员、14.农贸市场进口食品类从业人员、15.农贸市场其他人员、16.农贸市场专项排查其他从业人员、17.屠宰场/各类冷库从业人员、18.农贸市场中地下或通风不良场所从业人员、99.其它人群 |
- |
 | PatAbroad | Content | str | 是否14天内境外入境人员1.是 2.否 |
- |
 | Setlement | Content | str | 自费/记账/居民医疗保险等 |
- |
 | Origin | Content | str | 1.集中留观、2.密切接触者、3.交通检疫、4.社区排查、5.发热门诊、6.其他门（急）诊、7.住院患者、8.住院患者陪护人员、9.农贸市场专项排查、99.其它采样点 |
- |
 | HouseholdRegister | Content | str | 户籍地 |
- |
 | EmpId | Content | str | 患者主索引 |
- |
 | LabApplys | Content | 节点 | 1..1，申请单集合 |
- |
 | LabApply | LabApplys | 节点 | 1..\*，重复节点，一个节点为一个申请单明细信息 |
- |
 | BranchId | LabApply | str | 院区ID |
- |
 | ApplyId | LabApply | str | 申请单号 |
- |
 | Source | LabApply | str | 来源ID，0门诊；1住院;2体检 |
- |
 | SourceName | LabApply | str | 来源名称，门诊；住院;体检 |
- |
 | ClinicId | LabApply | str | 门诊流水号 |
- |
 | AdmissTimes | LabApply | str | 住院次数 |
- |
 | VisitNumber | LabApply | str | 住院流水号，唯一ID，适配修改住院号 |
- |
 | DiagCode | LabApply | str | 主要诊断代码 |
- |
 | DiagName | LabApply | str | 主要诊断名称 |
- |
 | DeptCode | LabApply | str | 开单科室代码 |
- |
 | DeptName | LabApply | str | 开单科室名称 |
- |
 | WardCode | LabApply | str | 开单病区代码 |
- |
 | WardName | LabApply | str | 开单病区名称 |
- |
 | DoctCode | LabApply | str | 开单医生代码 |
- |
 | DoctName | LabApply | str | 开单医生名称 |
- |
 | ApplyDate | LabApply | str | 申请时间 |
- |
 | BedNo | LabApply | str | 床号 |
- |
 | ApplyStatus | LabApply | str | 状态，0：新开 1：已执行收费，2：已登记，3：已确认，4：报告已发布，5：报告已打印，9：已退费 |
- |
 | DeleteFlag | LabApply | str | 删除标志，0：未删除，1：已删除 |
- |
 | UrgenFlag | LabApply | str | 加急标志：0：常规 1：加急 |
- |
 | SpecimenId | LabApply | str | 标本ID |
-| --- | --- | --- | --- |
 | SpecimenCode | LabApply | str | 标本代码 |
-| --- | --- | --- | --- |
 | SpecimenName | LabApply | str | 标本名称 |
-| --- | --- | --- | --- |
 | Annotation | LabApply | str | 检验注意事项 |
-| --- | --- | --- | --- |
 | ApplyItems | LabApply | str | 1..1，检查项目节点 |
- |
-| --- | --- | --- | --- | --- |
 | ApplyItem | ApplyItems | str | 1..\*，检查项目实体 |
- |
 | OrderId | ApplyItem | str | 医嘱ID |
- |
 | ItemCode | ApplyItem | str | 项目代码 |
- |
 | ItemName | ApplyItem | str | 项目名称 |
- |
 | MethodCode | ApplyItem | str | 检验方法代码 |
- |
 | MethodName | ApplyItem | str | 检验方法名称 |
- |
 | ExecTime | ApplyItem | str | 执行时间 |
- |
 | ExecDeptCode | ApplyItem | str | 执行科室 |
- |
 | ExecDeptName | ApplyItem | str | 执行科室名称 |
- |
 | Price | ApplyItem | str | 价格 |
- |
 
 #### 3.2.2.5注意事项
 
@@ -745,7 +678,7 @@ HIS\_GetLabApply
 
 #### 3.2.3.1服务名 MessageCategory （消息类别）
 
-HIS\_GetExamApply
+HIS_GetExamApply
 
 #### 3.2.3.2用途
 
