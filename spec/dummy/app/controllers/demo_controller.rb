@@ -14,8 +14,8 @@ class DemoController < ApplicationController
     params = {
       transaction_code: "1001",
       transaction_id: "111",
-      auth_key: "eUOPTfxvGVeusXeV",
-      user_id: "fdrx/FD001",
+      auth_key: "tTEHlaEHZYaouVNs",
+      user_id: "倍康微信/Z997",
       device_id: "111",
       hospital_id: "H44011100745"
     }
@@ -49,15 +49,14 @@ class DemoController < ApplicationController
     #                                                                 wrap_field: "xmlMessage",
     #                                                                 attributes: { "xmlns" => "http://ESB.Service/"  })
 
-    # resp = ::HisAdapter::Client.new(adapter: :jsz_his).request(:get_registerable_departments,
-    #                                                     params,
-    #                                                     xml_root: "Request",
-    #                                                     wrap_field: "strXml",
-    #                                                     attributes: {
-    #                                                       "xmlns" => "http://www.zoesoft.com.cn/"
-    #                                                     })
-    resp = ::HisAdapter::Client.new(adapter: :new_gysy_esb).request(:get_server_time,
-                                                             attributes: { "xmlns" => "http://ESB.Service/" })
+    resp = ::HisAdapter::Client.new(adapter: :jsz_his).request(:get_registerable_departments,
+                                                        params,
+                                                        attributes: {
+                                                          "xmlns" => "http://www.zoesoft.com.cn/"
+                                                        })
+    # resp = ::HisAdapter::Client.new(adapter: :new_gysy_esb).request(:get_server_time,
+    #                                                          attributes: { "xmlns" => "http://ESB.Service/" })
+    # render json: resp.data
     render json: resp.data
   end
 end

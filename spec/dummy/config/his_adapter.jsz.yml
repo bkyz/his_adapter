@@ -5,6 +5,8 @@ default: &default
   jsz_his:
     protocol: his
     wsdl: http://localhost:8081/service/service.asmx?wsdl
+    xml_root: Request
+    wrap_field: strXml
 
   api:
     medical_card_exists: :invoke # 判断就诊卡是否存在
@@ -21,7 +23,7 @@ default: &default
     get_towns: :dx_get_town # 获取镇、街道列表
     check_real-name_auth: :dx_check_idenno_new # 验证是否实名
 #    get_registerable_departments: :dx_get_reg_dept_list # 获取挂号科室列表
-    get_registerable_departments: :bk_cloud_get_dept_info # 获取挂号科室列表
+    get_registerable_departments: :invoke # 获取挂号科室列表
     get_registerable_doctors: :dx_get_reg_doc_list # 获取挂号医生列表
     get_registerable_doctors_schedule: :dx_getsplit_list # 获取挂号医生排班信息
     get_register_fee: :dx_get_reg_amt # 获取挂号费用

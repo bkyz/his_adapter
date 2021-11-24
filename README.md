@@ -39,9 +39,7 @@ HisAdapter::Client.new(adapter: :gysy_his).request(api,
 api = :get_patients_info
 params = { patient_hospital_no: "4401000036309570" }
 
-HisAdapter::Client.new(adapter: :gysy_lis).request(api,
-                                              params,
-                                              xml_root: "")
+HisAdapter::Client.new(adapter: :gysy_lis).request(api, params)
 ```
 
 广三旧院区 esb:
@@ -56,8 +54,6 @@ params = {
 
 HisAdapter::Client.new(adapter: :gysy_esb).request(api, 
                                                    params, 
-                                                   xml_root: "req", 
-                                                   wrap_field: "xmlMessage",
                                                    attributes: { "xmlns" => "http://ESB.Service/" })
 ```
 
@@ -65,10 +61,7 @@ HisAdapter::Client.new(adapter: :gysy_esb).request(api,
 ```ruby
 api = :get_server_time 
 
-::HisAdapter::Client.new(adapter: :new_gysy_esb).request(:get_server_time,
-                                                         xml_root: "Request",
-                                                         wrap_field: "xmlMessage",
-                                                         attributes: { "xmlns" => "http://ESB.Service/" })
+::HisAdapter::Client.new(adapter: :new_gysy_esb).requests(api, attributes: { "xmlns" => "http://ESB.Service/" })
 ```
 
 顺德妇幼
@@ -76,9 +69,7 @@ api = :get_server_time
 # 有参数 api 调用方式
 api_without_params = :get_provinces 
 
-HisAdapter::Client.new(adapter: :sdfy_his).request(api_without_params, 
-                                                   xml_root: "Request",
-                                                   wrap_field: "RequestXml")
+HisAdapter::Client.new(adapter: :sdfy_his).request(api_without_params)
 
 # 无参 api 调用方式
 api_with_params = :get_cities
@@ -86,10 +77,7 @@ params = {
   province_code: "44"
 }
 
-HisAdapter::Client.new(adapter: :sdfy_his).request(api_with_params,
-                                                   params,
-                                                   xml_root: "Request",
-                                                   wrap_field: "RequestXml")
+HisAdapter::Client.new(adapter: :sdfy_his).request(api_with_params, params)
 ```
 
 ## Installation
