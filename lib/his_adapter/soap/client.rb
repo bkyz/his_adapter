@@ -5,76 +5,53 @@ module HisAdapter
       class ApiNotFoundError < StandardError; end
       attr_accessor :client, :adapter
 
-      def initialize(adapter: )
+      def initialize(adapter:)
         @adapter = adapter.to_s
         @client = Savon.client(wsdl: wsdl)
       end
 
-      def wsdl
-        config["wsdl"]
-      end
+      def request(api, params = nil, **options)
+        parameter = ::HisAdapter::Parameter.new(api,
+                                                params,
+                                                adapter: adapter)
 
-      def request(api, params = nil, wrap_field: nil, xml_root: "Request", **options)
-        operation = operation(api)
+        request = ::HisAdapter::Soap::Request.new(api,
+                                                  parameter,
+                                                  adapter: adapter,
+                                                  client: client,
+                                                  **options)
 
-        message = format_params(api,
-                                params,
-                                adapter: adapter,
-                                wrap_field: wrap_field,
-                                xml_root: xml_root)
+        raw_response = request.call
 
-        default_options = {
-          attributes: {
-            "xmlns" => "http://tempuri.org/"
-          }
-        }
+        # req = client.build_request(operation,
+        #                            message: message,
+        #                            **default_request_options.merge(options))
 
-        # binding.pry
-        req = client.build_request(operation, message: message, **default_options.merge(options))
-        raw_response = client.call(operation, message: message, **default_options.merge(options))
-        # binding.pry
-
-
-        request = Soap::Request.new(api: api,
-                                    operation: operation,
-                                    message: message,
-                                    wsdl: wsdl)
+        # raw_response = client.call(operation,
+        #                            message: message,
+        #                            **default_request_options.merge(options))
 
         Soap::Response.new(request, raw_response)
       end
 
-      # 将参数转为 soap 协议的 message 参数，类型为字符串
-      def format_params(api, params, adapter: , wrap_field: , xml_root: )
-        return "" if params.blank? && !esb_protocol?
+      # 构建请求，但实际上没有调用
+      def build_request(api, params, **options)
+        operation = operation(api)
+        message = format(api, params)
 
-
-        if esb_protocol?
-          ::HisAdapter::Soap::EsbParameter.new(api,
-                                               params,
-                                               adapter: adapter,
-                                               wrap_field: wrap_field,
-                                               xml_root: xml_root).convert!
-        else
-          ::HisAdapter::Soap::Parameter.new(api,
-                                            params,
-                                            wrap_field: wrap_field,
-                                            xml_root: xml_root).convert!
-        end
+        client.build_request(operation,
+                             message: message,
+                             **default_request_options.merge(options))
       end
 
       def config
         @config ||= ::HisAdapter.config[adapter]
       end
 
-      def esb_protocol?
-        config["protocol"] == "esb"
+      def wsdl
+        config["wsdl"]
       end
 
-      def operation(api)
-        HisAdapter.config["api"].fetch(api.to_s) do
-          raise ApiNotFoundError, "#{api} config not found, please check if config defined in config/his_adapter.yml "
-        end
-      end
     end
   end
 end

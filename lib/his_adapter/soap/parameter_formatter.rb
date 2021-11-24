@@ -2,12 +2,18 @@
 module HisAdapter
   module Soap
     class ParameterFormatter
-      attr_accessor :params, :wrap_field, :xml_root
+      attr_accessor :api,
+                    :origin_params,
+                    :wrap_field,
+                    :xml_root,
+                    :converted
 
-      def initialize(params, wrap_field: nil, xml_root: "")
-        @wrap_field = wrap_field
-        @params = params
+      def initialize(api, params, adapter:, wrap_field: nil, xml_root: "")
+        @adapter = adapter
+        @api = api
         @xml_root = xml_root
+        @wrap_field = wrap_field
+        @origin_params = params
       end
 
       def wrap(content)
@@ -19,10 +25,18 @@ module HisAdapter
       end
 
       def format
-        wrap(convert_params_to_xml)
+        return "" if origin_params.blank?
+
+        params = convert_field(origin_params)
+        xml = params_to_xml(params)
+        wrap(xml)
       end
 
-      def convert_params_to_xml
+      def convert_field(params)
+        RequestFieldConverter.new(api, params).convert
+      end
+
+      def params_to_xml(params)
         return params if params.nil?
 
         # 因为有些服务不需要根标签，这时候只要传入值为 "" 的 xml_root 即可。

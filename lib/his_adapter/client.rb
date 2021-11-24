@@ -3,7 +3,7 @@ module HisAdapter
   class Client
     attr_accessor :client
 
-    delegate :request, to: :client
+    delegate :request, :build_request, to: :client
 
     def initialize(adapter: :his)
       if ::HisAdapter.use_soap?(adapter: adapter)

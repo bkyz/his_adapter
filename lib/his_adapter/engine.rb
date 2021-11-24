@@ -1,6 +1,6 @@
 require "his_adapter/parameter"
-require "his_adapter/soap/parameter"
-require "his_adapter/soap/esb_parameter"
+require "his_adapter/soap/parameter_formatter"
+require "his_adapter/soap/esb_parameter_formatter"
 require "his_adapter/request_field_converter"
 require "his_adapter/soap/parameter_formatter"
 require "his_adapter/soap/request"

@@ -41,12 +41,23 @@ class DemoController < ApplicationController
     #                                                                  "xmlns" => "http://www.zoesoft.com.cn/"
     #                                                                })
 
-    ::HisAdapter::Client.new(adapter: :new_gysy_esb).request(:get_server_time,
-                                                             xml_root: "Request",
-                                                             attributes: { "xmlns" => "http://ESB.Service/"
-                                                             })
-    p response
+    # resp = ::HisAdapter::Client.new(adapter: :new_gysy_esb).request(:get_registerable_departments,
+    #                                                                 {
+    #                                                                   branch_id: "02",
+    #                                                                 },
+    #                                                                 xml_root: "Request",
+    #                                                                 wrap_field: "xmlMessage",
+    #                                                                 attributes: { "xmlns" => "http://ESB.Service/"  })
 
-    render json: { result: :ok }
+    # resp = ::HisAdapter::Client.new(adapter: :jsz_his).request(:get_registerable_departments,
+    #                                                     params,
+    #                                                     xml_root: "Request",
+    #                                                     wrap_field: "strXml",
+    #                                                     attributes: {
+    #                                                       "xmlns" => "http://www.zoesoft.com.cn/"
+    #                                                     })
+    resp = ::HisAdapter::Client.new(adapter: :new_gysy_esb).request(:get_server_time,
+                                                             attributes: { "xmlns" => "http://ESB.Service/" })
+    render json: resp.data
   end
 end

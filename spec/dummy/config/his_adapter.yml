@@ -1,0 +1,284 @@
+
+default: &default
+  # available protocol: his, lis, esb, pacs, http
+
+  gysy_his:
+    protocol: his
+    wsdl: http://localhost:88/BKCloud.asmx?wsdl
+
+  gysy_esb:
+    protocol: esb
+    wsdl: http://localhost:82/ESBService.asmx?wsdl
+    app_code: APP_WeChat
+    password: F80oC4Qk
+    version: 1
+    message_category:
+      get_pathology_report_list: Pathology_GetReportList # 获取病理报告列表
+      get_pathology_report_image: Pathology_GetReportImage # 获取病理报告图片
+      get_endoscpy_report_list: Endoscpy_GetReportList
+      get_endoscpy_report_item: Endoscpy_GetReportItem
+      get_endoscpy_report_image: Endoscpy_GetReportImage
+
+  new_gysy_esb:
+    wsdl: http://localhost:6002/Esbservice.asmx?wsdl
+    protocol: esb
+    xml_root: Requesst
+    wrap_field: xmlMessage
+    app_code: APP_WeChatOA
+    password: FPs9oqUbCZwCCQfz
+    version: 1
+    message_category:
+      get_server_time: HIS_GetServerTime
+      get_registerable_departments: HIS_GetOutDeptInfo
+
+
+
+  gysy_pacs:
+    protocol: pacs
+    wsdl: http://localhost:8081/wsdl/IPacsServices
+
+  jsz_his:
+    protocol: his
+    wsdl: http://localhost:8081/service/service.asmx?wsdl
+
+  jsz_http:
+    protocol: http
+    base_url: http://localhost:8086/sqwebserver.asmx
+
+  api:
+
+
+
+    get_server_time: :call_esb
+    get_patients_info: :invoke # 金沙洲
+    get_provinces: :dx_get_province  # 获取省份列表
+    get_cities: :dx_get_city # 获取城市列表
+    get_districts: :dx_get_district # 获取区列表
+    get_towns: :dx_get_town # 获取镇、街道列表
+    get_medical_card: :dx_get_patient18 # 获取
+    create_medical_card: :dx_new_patient18 # 创建诊疗卡
+    edit_medical_card: :dx_edit_patient18 # 修改诊疗卡信息
+    check_real-name_auth: :dx_check_idenno_new # 验证是否实名
+    get_registerable_departments: :call_esb # 获取门诊科室列表
+    get_registerable_doctors: :dx_get_reg_doc_list # 获取挂号医生列表
+    get_registerable_doctors_schedule: :dx_getsplit_list # 获取挂号医生排班信息
+    get_register_fee: :dx_get_reg_amt # 获取挂号费用
+    register: :dx_save_reg_info18 # 挂号
+    get_register_info: :dx_get_reg_info # 获取挂号详情
+    check_bill_is_valid: :dx_get_pill_valid # 校验订单有效性
+    cancel_register: :dx_cancel_reg_info # 取消挂号
+    get_bookable_departments: :dx_get_book_dept_list # 获取可预约科室列表
+    get_bookable_doctors: :dx_get_book_doc_list # 获取可预约的医生列表
+    get_bookable_doctor_schedule: :dx_get_book_doc_time_table # 获取预约医生排班信息
+    get_appointment_info: :dx_get_book_info # 获取预约详情
+    book: :dx_save_book_info # 预约
+    cancel_appointment: :dx_cancel_book_info # 取消预约
+    get_prescription: :dx_get_clin_recipes # 获取处方信息
+    get_prescription_detail: :dx_get_clin_recipes_detail # 获取处方明细
+    prepay: :dx_clin_pay_prepare18 # 预结算
+    pay: :dx_clin_pay_finish18 # 完成支付
+    get_report_list: :get_report_list
+    get_exam_detail: :get_exam_detail
+    download_report: :download_report2
+    pending_pay: :interface_trade_jkzl
+
+  dict:
+    common:
+      request:
+        branch_id: BranchId
+        department_id: DeptId
+        parent_department_id: ParentDeptId
+      response:
+#        result_code: ResultCode
+        ErrorMsg: error_msg
+        Result: result
+        Response: response
+        res: response
+        ResultCode: code
+        ResultMessage: msg
+        resultDesc: result_desc
+        Content: data
+        BranchId: branch_id
+    pending_pay:
+      request:
+        disp_or_resi: DispOrResi
+        id_card_no: IDCardNo
+        clinic_card: ClinicCard
+        doctor_code: DoctorCode
+        dept_code: DeptCode
+        diag_date: DiagDate
+        reg_no: RegNo
+    get_report_list:
+      request:
+        card_no: cardNo
+        card_type: cardType
+        begin_date: beginDate
+        end_date: endDate
+    get_endoscpy_report_list:
+      request:
+        card_no: cardNo
+        card_type: cardType
+        begin_date: beginDate
+        end_date: endDate
+    get_endoscpy_report_image:
+      request:
+        item_id: itemId
+    download_report:
+      request:
+        patient_id: pat_id
+#    get_patients_info:
+#      request:
+#        patient_name: pat_name
+#        patient_hospital_no: pat_in_no
+#        patient_bar_code: pat_bar_code
+#        client_type: clientType
+#      response:
+#        pat_id: id
+#        pat_date: date
+#        pat_send_date: send_date
+#        pat_sam_id: sam_id
+#        pat_sam_name: sam_name
+#        pat_name: name
+#        pat_sex: gender
+#        pat_age: age
+#        pat_diag: diag
+#        pat_itr_id: itr_id
+#        pat_dep_name: dep_name
+#        pat_occ_date: occ_date
+
+    get_registerable_departments:
+      request:
+      response:
+        Dept: departments
+        DeptId: id
+        DeptName: name
+        ParentDeptId: parent_id
+        DeptSerialNo: order
+        ScheduleCount: schedule_count
+        DeptDesc: description
+        DeptSite: room
+        DeptStatus: state
+        DeptRegType: in_schedule
+
+    get_provinces:
+      response:
+        PROVINCE_CODE: code
+        PROVINCE_NAME: name
+    get_cities:
+      request:
+        province_code: PROVINCE_CODE
+      response:
+        CITY_CODE: code
+        CITY_NAME: name
+    get_districts:
+      request:
+        city_code: CITY_CODE
+      response:
+        DISTRICT_CODE: code
+        DISTRICT_NAME: name
+    get_towns:
+      request:
+        district_code: DISTRICT_CODE
+      response:
+        TOWN_CODE: code
+        TOWN_NAME: name
+    create_medical_card:
+      request:
+        name: PatientName
+        gender: Sex
+        birthday: BirthDay
+        address: Address
+        nation: Nation
+        phone_no: Phone
+        card_no: CardNo
+        id_card_no: IDCard
+        machine_id: MachineId
+        province_code: PROVINCE_CODE
+        province_name: PROVINCE_NAME
+        city_code: CITY_CODE
+        city_name: CITY_NAME
+        district_code: RIGION_CODE # 这个没打错，就是这样的，提供接口的那边打错了
+        district_name: REGION_NAME
+        town_code: TOWN_CODE
+        town_name: TOWN_NAME
+        detail_address: DETAIL_ADDRESS
+        guardian_relation: YJHRGX
+        guardian_name: JHRXM
+        guardian_phone_no: JHRDH
+        guardian_id_card_no: JHRSFZH
+      response:
+        hospatid: hospital_id
+        clinno: outpatient_no
+        cardno: card_no
+    get_register_info:
+      request:
+        card_no: CardNo
+        outpatient_no: ClinNo
+        id_card_no: IDCard
+        serial_number: FlowNo
+        hospital_id: HosPatId
+        start_on: StartDate
+        end_on: EndDate
+      response:
+        serial_number: flowno
+        hospital_id: hospatid
+        outpatient_id: clinno
+        card_no: cardno
+        id_card_no: idcard
+        schedule_id: scheduleid
+        department_id: deptid
+        department_name: deptname
+        doctor_id: docid
+        doctor_name: docname
+        subject_id: subjectid
+        subject_name: subjectname
+        start_at: starttime
+        end_at: endtime
+        register_type: regtype
+        register_fee: regamt
+        registrar_id: registrarid
+        registered_at: regtime
+        wait_no: waitno
+        state: state
+
+        flowno: serial_number
+        hospatid: hospital_id
+        clinno: outpatient_no
+        cardno: card_no
+        idcard: id_card_no
+        scheduleid: schedule_id
+        deptid: department_id
+        deptname: department_name
+        docid: doctor_id
+        docname: doctor_name
+        subjectid: subject_id
+        subjectname: subject_name
+    get_bookable_departments:
+      response:
+        department_id: deptid
+        department_name: deptname
+        top_department_code: top_dept_code
+        top_department_name: top_dept_name
+        sort_id: sort_id
+    pay:
+      request:
+        hospital_id: HosPatId
+        outpatient_no: ClinNo
+        result_data: ResultData
+        serial_number: FlowNo
+        prescription_id: RecipeId
+        options: Options
+        start_at: StartTime
+        end_at: EndTime
+        orders: Orders
+        fee: Fee
+      response:
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+
+test:
+  <<: *default
