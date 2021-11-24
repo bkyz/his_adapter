@@ -4,6 +4,7 @@ PATH
     his_adapter (0.1.0)
       faraday
       rails (~> 6.1.4, >= 6.1.4.1)
+      rexml
       savon
 
 GEM

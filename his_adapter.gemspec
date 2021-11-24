@@ -23,5 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 6.1.4", ">= 6.1.4.1"
   spec.add_dependency "savon"
   spec.add_dependency "faraday"
+  spec.add_dependency "rexml"
   spec.add_development_dependency "puma"
 end
