@@ -36,6 +36,8 @@ default: &default
     version: 1
     message_category:
       get_server_time: HIS_GetServerTime
+      get_register_departments:
+
 
   gysy_pacs:
     protocol: pacs
@@ -62,7 +64,9 @@ default: &default
     edit_medical_card: :dx_edit_patient18 # 修改诊疗卡信息
     check_real-name_auth: :dx_check_idenno_new # 验证是否实名
 #    get_registerable_departments: :dx_get_reg_dept_list # 获取挂号科室列表
-    get_registerable_departments: :bk_cloud_get_dept_info # 获取挂号科室列表
+#    get_registerable_departments: :bk_cloud_get_dept_info # 获取挂号科室列表
+    get_registerable_departments: :invoke # 获取挂号科室列表
+
     get_registerable_doctors: :dx_get_reg_doc_list # 获取挂号医生列表
     get_registerable_doctors_schedule: :dx_getsplit_list # 获取挂号医生排班信息
     get_register_fee: :dx_get_reg_amt # 获取挂号费用
@@ -185,7 +189,7 @@ default: &default
 #        pat_occ_date: occ_date
     get_registerable_departments:
       request:
-        data: date
+        date: date
         hospital_id: hospitalId
         dept_id: deptId
       response:
