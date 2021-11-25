@@ -34,6 +34,14 @@ module HisAdapter
         raw.data
       end
 
+      def success?
+        data.dig("result", "code") == success_code || data.dig("response", "code") == success_code
+      end
+
+      def failure?
+        !success?
+      end
+
       private
 
       def response_wrap_field
@@ -42,6 +50,10 @@ module HisAdapter
 
       def result_wrap_field
         :"#{operation}_result"
+      end
+
+      def success_code
+        HisAdapter.config["success_code"]
       end
 
     end

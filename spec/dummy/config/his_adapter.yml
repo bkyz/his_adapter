@@ -24,6 +24,7 @@ default: &default
     protocol: esb
     xml_root: Request
     wrap_field: xmlMessage
+    success_code: "0"
     app_code: APP_WeChatOA
     password: FPs9oqUbCZwCCQfz
     version: 1
@@ -40,15 +41,15 @@ default: &default
   jsz_his:
     protocol: his
     wsdl: http://localhost:8081/service/service.asmx?wsdl
+    xml_root: Request
+    wrap_field: strXml
+    success_code: "0"
 
   jsz_http:
     protocol: http
     base_url: http://localhost:8086/sqwebserver.asmx
 
   api:
-
-
-
     get_server_time: :call_esb
     get_patients_info: :invoke # 金沙洲
     get_provinces: :dx_get_province  # 获取省份列表
@@ -81,6 +82,7 @@ default: &default
     get_exam_detail: :get_exam_detail
     download_report: :download_report2
     pending_pay: :interface_trade_jkzl
+    network_test: :invoke
 
   dict:
     common:
@@ -91,7 +93,8 @@ default: &default
       response:
 #        result_code: ResultCode
         ErrorMsg: error_msg
-        Result: result
+        Result: code # 金沙洲的 Result 其实是 code
+        # Result: result
         Response: response
         res: response
         ResultCode: code
@@ -99,6 +102,14 @@ default: &default
         resultDesc: result_desc
         Content: data
         BranchId: branch_id
+    network_test: # 金沙洲
+      request:
+        transaction_code: TranCode
+        transaction_id: TransactionID
+        auth_key: AuthKey
+        user_id: UserID
+        device_id: DeviceID
+        hospital_id: HospitalID
     pending_pay:
       request:
         disp_or_resi: DispOrResi
