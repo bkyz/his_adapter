@@ -34,8 +34,12 @@ module HisAdapter
         raw.data
       end
 
+      def message
+        data["result"]["msg"]
+      end
+
       def success?
-        data.dig("result", "code") == success_code || data.dig("response", "code") == success_code
+        data["result"]["code"] == success_code
       end
 
       def failure?
