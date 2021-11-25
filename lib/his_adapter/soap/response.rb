@@ -4,7 +4,7 @@ module HisAdapter
     class Response
       attr_accessor :raw, :data, :request
 
-      delegate :api, :wsdl, :operation, :message, to: :request
+      delegate :api, :wsdl, :operation, :message, :adapter, to: :request
 
       # @param [Soap::Request] soap_request
       # @param [Savon::Response] raw
@@ -57,9 +57,8 @@ module HisAdapter
       end
 
       def success_code
-        HisAdapter.config["success_code"]
+        HisAdapter.config[adapter]["success_code"]
       end
-
     end
   end
 end
