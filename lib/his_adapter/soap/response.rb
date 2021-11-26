@@ -26,7 +26,7 @@ module HisAdapter
         # raw_data 可能返回 string 但不是 xml 格式的（广三旧院区 esb 报错信息），这里捕捉这种情况的异常
         # 如 {:call_esb_response=>{:call_esb_result=>"未知服务", :@xmlns=>"http://ESB.Service/"}}
       rescue REXML::ParseException => e
-        @data = ResponseFieldConverter.new(api, data).convert
+        @data = ResponseFieldConverter.new(api, { code: "xxxx", msg: raw_data }).convert
       end
 
       def raw_data
