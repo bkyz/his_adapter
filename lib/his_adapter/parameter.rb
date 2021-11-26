@@ -19,7 +19,7 @@ module HisAdapter
                         end
 
       @formatter = formatter_class.new(api,
-                                       params,
+                                       params.reject{|_, v| v.nil?},
                                        adapter: adapter,
                                        xml_root: xml_root,
                                        wrap_field: wrap_field)
