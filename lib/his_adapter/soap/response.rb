@@ -12,7 +12,6 @@ module HisAdapter
         @raw = raw
         @request = request
 
-        # data = Hash.from_xml(raw.body.dig(response_wrap_field, result_wrap_field))["Response"]
         raw_data = raw.body.dig(response_wrap_field, result_wrap_field)
 
         data = if raw_data.is_a? String # 针对顺德妇幼返回的 xml 字符串的数据
@@ -34,12 +33,20 @@ module HisAdapter
         raw.data
       end
 
+      def http_code
+        raw.http.code
+      end
+
+      def code
+        data["result"]["code"]
+      end
+
       def message
         data["result"]["msg"]
       end
 
       def success?
-        data["result"]["code"] == success_code
+        code == success_code
       end
 
       def failure?

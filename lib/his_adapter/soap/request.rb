@@ -4,6 +4,8 @@ module HisAdapter
     class Request
       attr_accessor :api, :parameter, :adapter, :options, :client
 
+      alias payload parameter
+
       def initialize(api, parameter, client:, adapter:, **options)
         @api = api
         @parameter = parameter

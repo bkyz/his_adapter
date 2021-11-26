@@ -95,7 +95,7 @@ default: &default
         ErrorMsg: error_msg
         Result: code # 金沙洲的 Result 其实是 code
         # Result: result
-        Response: response
+        Response: result
         res: response
         ResultCode: code
         ResultMessage: msg
