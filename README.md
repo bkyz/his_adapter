@@ -27,9 +27,7 @@ params = {
 api = :get_registerable_departments
 params = {date: "2021-11-16", hospital_id: "", dept_id: ""}
 HisAdapter::Client.new(adapter: :gysy_his).request(api, 
-                                                   params, 
-                                                   xml_root: "req", 
-                                                   wrap_field: "p_strXml")
+                                                   params)
 ```
 
 广三旧院区 lis: 
