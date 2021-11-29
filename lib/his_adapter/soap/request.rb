@@ -2,7 +2,10 @@
 module HisAdapter
   module Soap
     class Request
+      class ApiNotFoundError; end
+
       attr_accessor :api, :parameter, :adapter, :options, :client
+
 
       alias payload parameter
 

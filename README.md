@@ -93,6 +93,9 @@ Or install it yourself as:
 $ gem install his_adapter
 ```
 
+## 注意
+- 配置`success_code`, `xml_root`, `wrap_field`
+
 ## Contributing
 Contribution directions go here.
 
