@@ -2,7 +2,7 @@
 module HisAdapter
   module Soap
     class Request
-      class ApiNotFoundError; end
+      class ApiNotFoundError < StandardError; end
 
       attr_accessor :api, :parameter, :adapter, :options, :client
 
