@@ -46,7 +46,11 @@ module HisAdapter
       end
 
       def success?
-        code == success_code
+        if success_code.is_a? Array
+          code.in? success_code
+        else
+          code == success_code
+        end
       end
 
       def failure?
