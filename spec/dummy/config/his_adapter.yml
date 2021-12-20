@@ -1,6 +1,12 @@
 
 default: &default
   # available protocol: his, lis, esb, pacs, http
+  
+  # 开发区 lis
+  kfq_lis:
+    protocol: lis
+    wsdl: http://localhost:9002/NeuLisPrintService.asmx?wsdl
+    xml_root: ""
 
   # 顺德妇幼
   sdfy_his:
@@ -68,6 +74,7 @@ default: &default
     base_url: http://localhost:8086/sqwebserver.asmx
 
   api:
+
 #    get_patients_info: :get_patients_info
     get_server_time: :call_esb
     get_patients_info: :invoke # 金沙洲
@@ -124,6 +131,9 @@ default: &default
     # 获取内镜报告图片
     get_endoscpy_report_image: :call_esb
 
+
+    list_examine_reports: :get_test_form # 获取检验报告列表
+
   dict:
     common:
       request:
@@ -136,6 +146,8 @@ default: &default
         card_type: CardType
         card_num: CardNum
         is_child: isChild
+        patient_id: patientId
+        patient_name: patientName
       response:
 #        result_code: ResultCode
         ErrorMsg: error_msg

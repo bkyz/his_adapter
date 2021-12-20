@@ -1,8 +1,8 @@
-
 module HisAdapter
   module Soap
     class Client
       class ApiNotFoundError < StandardError; end
+
       attr_accessor :client, :adapter
 
       def initialize(adapter:)
@@ -23,25 +23,18 @@ module HisAdapter
 
         raw_response = request.call
 
-        # req = client.build_request(operation,
-        #                            message: message,
-        #                            **default_request_options.merge(options))
-
-        # raw_response = client.call(operation,
-        #                            message: message,
-        #                            **default_request_options.merge(options))
-
         Soap::Response.new(request, raw_response)
       end
 
       # 构建请求，但实际上没有调用
       def build_request(api, params, **options)
-        operation = operation(api)
-        message = format(api, params)
+        parameter = ::HisAdapter::Parameter.new(api, params, adapter: adapter)
 
-        client.build_request(operation,
-                             message: message,
-                             **default_request_options.merge(options))
+        ::HisAdapter::Soap::Request.new(api,
+                                        parameter,
+                                        adapter: adapter,
+                                        client: client,
+                                        **options).build
       end
 
       def config

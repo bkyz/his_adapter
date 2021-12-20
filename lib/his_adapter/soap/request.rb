@@ -23,6 +23,13 @@ module HisAdapter
                     **default_request_options.merge(options))
       end
 
+
+      def build
+        client.build_request(operation,
+                             message: message,
+                             **default_request_options.merge(options))
+      end
+
       def message
         parameter.format
       end
