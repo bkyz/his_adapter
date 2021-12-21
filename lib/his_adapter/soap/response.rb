@@ -16,10 +16,10 @@ module HisAdapter
 
         data = if raw_data.is_a? String # 针对顺德妇幼返回的 xml 字符串的数据
                  Hash.from_xml(raw_data)
-               elsif raw_data[:schema] # 针对 LIS 接口返回的 XSD 格式的数据
-                 raw_data[:diffgram][:document_element]
                elsif raw_data.blank?
                  {}
+               elsif raw_data[:schema] # 针对 LIS 接口返回的 XSD 格式的数据
+                 raw_data[:diffgram][:document_element]
                else # 针对返回普通 xml 格式的数据 ( 广三旧院区 )
                  raw_data
                end&.deep_transform_keys(&:to_s)
