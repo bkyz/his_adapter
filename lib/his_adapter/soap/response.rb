@@ -18,6 +18,8 @@ module HisAdapter
                  Hash.from_xml(raw_data)
                elsif raw_data[:schema] # 针对 LIS 接口返回的 XSD 格式的数据
                  raw_data[:diffgram][:document_element]
+               elsif raw_data.blank?
+                 {}
                else # 针对返回普通 xml 格式的数据 ( 广三旧院区 )
                  raw_data
                end&.deep_transform_keys(&:to_s)
