@@ -52,6 +52,8 @@ module HisAdapter
       def success?
         if success_code.is_a? Array
           code.in? success_code
+        elsif success_code.is_a? Regexp # http 状态码的情况
+          success_code.match?(code)
         else
           code == success_code
         end
@@ -71,8 +73,9 @@ module HisAdapter
         :"#{operation}_result"
       end
 
+      # 如果定义了成功状态码则使用定义的，如果没有则判断 http 状态码，即以 "2" 开头的状态码
       def success_code
-        HisAdapter.config[adapter]["success_code"] || "200"
+        HisAdapter.config[adapter]["success_code"] || /^2/
       end
     end
   end
