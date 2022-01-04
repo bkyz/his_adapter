@@ -39,12 +39,14 @@ module HisAdapter
         raw.http.code
       end
 
+      # 如果结果有返回结果码，则使用结果码；如果没有则使用状态码
       def code
-        data["result"]["code"]
+        data.try(:dig, "result").try(:dig, "code") || http_code.to_s
       end
 
+      # 结果信息
       def message
-        data["result"]["msg"]
+        data.try(:dig, "result").try(:dig, "msg").to_s
       end
 
       def success?
@@ -70,7 +72,7 @@ module HisAdapter
       end
 
       def success_code
-        HisAdapter.config[adapter]["success_code"]
+        HisAdapter.config[adapter]["success_code"] || "200"
       end
     end
   end
