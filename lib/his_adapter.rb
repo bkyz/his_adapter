@@ -10,7 +10,7 @@ module HisAdapter
 
   def self.config
     @config ||= begin
-                  config = YAML.load_file(config_path)
+                  config = YAML.load_file(config_path, aliases: true)
                   config[Rails.env] || config["default"]
                 end
   end
