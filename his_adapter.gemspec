@@ -25,5 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "savon"
   spec.add_dependency "faraday"
   spec.add_dependency "rexml"
+  spec.add_dependency "net-smtp"
+  spec.add_dependency "net-pop"
   spec.add_development_dependency "puma"
 end
