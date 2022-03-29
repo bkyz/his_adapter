@@ -5,9 +5,9 @@ module HisAdapter
 
       attr_accessor :client, :adapter
 
-      def initialize(adapter:)
+      def initialize(adapter:, **options)
         @adapter = adapter.to_s
-        @client = Savon.client(wsdl: wsdl)
+        @client = Savon.client(wsdl: wsdl, **options)
       end
 
       def request(api, params = nil, **options)
