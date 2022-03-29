@@ -6,7 +6,7 @@ module HisAdapter
 
       attr_accessor :adapter
 
-      def initialize(adapter: )
+      def initialize(adapter:, **options)
         @adapter = adapter.to_s
       end
 
